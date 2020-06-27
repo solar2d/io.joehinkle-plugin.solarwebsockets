@@ -39,4 +39,16 @@ jobs:
           tag_name: ${{ env.releaseName }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Directory update request
+        run: |
+          [ -z "${{ secrets.ISSUE_PAT }}" ] && echo "Skipping, no ISSUE_PAT" && exit 0
+          curl --request POST \
+          --url https://api.github.com/repos/solar2d/plugins.solar2d.com/dispatches \
+          --header 'authorization: Bearer ${{ secrets.ISSUE_PAT }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "event_type": "repo_updated",
+            "client_payload": {
+                "repo": "${{ github.repository }}"
+              }
+            }'
