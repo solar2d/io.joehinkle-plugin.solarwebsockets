@@ -31,7 +31,7 @@ Documenation
 ```lua
 {
     plugins = {
-        "plugin.solarwebsockets" = {
+        ["plugin.solarwebsockets"] = {
             publisherId = "io.joehinkle",
         },
     },
